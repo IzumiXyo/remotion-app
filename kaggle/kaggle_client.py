@@ -119,9 +119,13 @@ def push(notebook, slug, title, gpu=True, internet=True, timeout_seconds=32400):
 
 
 def status(owner, slug):
-    return api_call(
+    data = api_call(
         "GetKernelSessionStatus", {"userName": owner, "kernelSlug": slug}
     )
+    # Server menghilangkan field default, jadi {} berarti masih QUEUED.
+    if not data:
+        return {"status": "QUEUED"}
+    return data
 
 
 def list_output(owner, slug, page_size=50):
