@@ -14,14 +14,18 @@ if ! gh auth status >/dev/null 2>&1; then
 fi
 
 echo "▶ Trigger render '$COMP' → '$OUT'"
+BEFORE=$(gh run list --workflow=render.yml --limit=1 --json databaseId -q '.[0].databaseId // 0')
 gh workflow run render.yml -f composition="$COMP" -f output="$OUT"
 
-echo "⏳ Menunggu run muncul..."
+echo "⏳ Menunggu run baru..."
 RUN_ID=""
 for _ in $(seq 1 20); do
   sleep 3
-  RUN_ID=$(gh run list --workflow=render.yml --limit=1 --json databaseId,status -q '.[0].databaseId')
-  [ -n "$RUN_ID" ] && break
+  RUN_ID=$(gh run list --workflow=render.yml --limit=1 --json databaseId -q '.[0].databaseId // 0')
+  if [ -n "$RUN_ID" ] && [ "$RUN_ID" != "$BEFORE" ]; then
+    break
+  fi
+  RUN_ID=""
 done
 if [ -z "$RUN_ID" ]; then
   echo "Gagal menemukan run. Cek: gh run list --workflow=render.yml" >&2
