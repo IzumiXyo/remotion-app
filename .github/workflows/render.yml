@@ -27,10 +27,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -41,7 +41,7 @@ jobs:
       # Chrome Headless Shell (~150 MB) di-cache supaya render berikutnya tidak
       # mengunduh ulang. Lokasi cache: <project>/node_modules/.remotion
       - name: Cache Chrome Headless Shell
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules/.remotion
           key: remotion-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -60,7 +60,7 @@ jobs:
           npm run render -- "${args[@]}"
 
       - name: Upload hasil render
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rendered-video
           path: ${{ github.event.inputs.output }}
