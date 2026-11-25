@@ -74,6 +74,12 @@ gh run download --name rendered-video
 
 Bisa juga lewat tab **Actions → Render Video → Run workflow** di GitHub.
 
+Atau pakai wrapper satu perintah (trigger + tunggu + unduh otomatis):
+
+```bash
+./render-cloud.sh Hello out/hello.mp4
+```
+
 Input workflow:
 - `composition` — ID komposisi, default `Hello`
 - `output` — path output, default `out/video.mp4`
