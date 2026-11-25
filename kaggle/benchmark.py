@@ -105,6 +105,22 @@ time npx remotion bundle src/index.ts --out-dir build --log=info
 # driver GPU di Linux. Kita coba empat backend dan pilih yang tercepat.
 
 # %%
+# Warm-up: unduh Chrome for Testing + pastikan pipeline still bekerja.
+# Tidak dihitung dalam benchmark supaya waktu unduh tidak mengacaukan hasil.
+warmup = f"{WORK}/warmup.png"
+cmd = [
+    "npx", "remotion", "still", "build", "Bench", warmup,
+    "--frame=0",
+    "--chrome-mode=chrome-for-testing",
+    "--log=info",
+    "--timeout=180000",
+]
+p = subprocess.run(cmd, cwd=APP, env=ENV, capture_output=True, text=True, timeout=900)
+print("warm-up returncode:", p.returncode)
+print((p.stdout or "")[-1200:])
+if p.returncode != 0:
+    print((p.stderr or "")[-1800:])
+
 backends = ["angle-egl", "egl", "angle", "swangle"]
 results = {}
 
