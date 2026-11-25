@@ -1,0 +1,27 @@
+{
+  "name": "remotion-app",
+  "version": "1.0.0",
+  "description": "Remotion starter project untuk Termux",
+  "private": true,
+  "scripts": {
+    "studio": "node ./node_modules/@remotion/cli/remotion-cli.js studio",
+    "render": "node ./node_modules/@remotion/cli/remotion-cli.js render",
+    "bundle": "node ./node_modules/@remotion/cli/remotion-cli.js bundle",
+    "upgrade": "node ./node_modules/@remotion/cli/remotion-cli.js upgrade"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@remotion/cli": "^4.0.547",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.547"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.1",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "5.9"
+  }
+}
